@@ -53,50 +53,161 @@ $(document).ready(function(){
         const address = $("#address").val();
         const nic = $("#nic").val();
 
+        var nameValidate=false;
+        var emailValidate=false;
+        var passwordValidate=false;
+        var re_passwordValidate=false;
+        var nicValidate=false;
+        var addressValidate=false;
+        var phoneValidate=false;
 
         if(name.length == ""){
             $(".name").addClass("is-invalid");
         } else {
             $(".name").removeClass("is-invalid");
+            nameValidate=true;
         }
 
-        if(email.length == ""){
-            $(".email").addClass("is-invalid");
-        } else {
-            $(".email").removeClass("is-invalid");
-        }
 
-        if(password.length == ""){
-            $(".password").addClass("is-invalid");
-        } else {
-            $(".password").removeClass("is-invalid");
-        }
-
-        if(re_password.length == ""){
-            $(".re-password").addClass("is-invalid");
-        } else {
-            $(".re-password").removeClass("is-invalid");
-        }
-
+        //   NIC Validate
         if(nic.length == ""){
+            $(".emailValidate").addClass("invisible");
             $(".nic").addClass("is-invalid");
-        } else {
+        } else if(nic.length==10) {
+           
+            $(".emailValidate").addClass("invisible"); 
             $(".nic").removeClass("is-invalid");
+
+
+            // last letter should be X or V
+            const lastLetter = nic[nic.length-1];
+            const numbers = nic.slice(0,nic.length-1);
+           // console.log(numbers,!isNaN(numbers))
+            if((lastLetter==='V' || lastLetter==='X') && !isNaN(numbers))
+            {
+                $(".emailValidate").addClass("invisible");
+                nicValidate=true;
+            }
+            else
+            {
+                $(".emailValidate").removeClass("invisible");
+            }
+
+        }else{
+            $(".nic").removeClass("is-invalid");
+            $(".emailValidate").removeClass("invisible");
         }
+
+
+        //End NIC Validate
+
+
 
         if(phone.length == ""){
             $(".phone").addClass("is-invalid");
+            $(".phoneValidate").addClass("invisible");
         } else {
             $(".phone").removeClass("is-invalid");
+
+            
+            if(isNaN(phone)){
+                $(".phoneValidate").removeClass("invisible");
+                //document.write(num1 + " is not a number <br/>");
+             }else{
+                 
+                //document.write(num1 + " is a number <br/>");
+                if (phone.length == 10) {
+                    $(".phoneValidate").addClass("invisible");
+                    phoneValidate=true;
+                }else{
+                    $(".phoneValidate").removeClass("invisible");
+                }
+             }
+
+            
         }
 
         if(address.length == ""){
             $(".address").addClass("is-invalid");
         } else {
             $(".address").removeClass("is-invalid");
+            addressValidate =true;
         }
 
-        if(name.length != "" && email.length != "" && password.length != ""){
+        //Email Validate
+
+        if(email.length == ""){
+            $(".email").addClass("is-invalid");
+            $(".emailValidateError").addClass("invisible");
+        } else {
+            $(".email").removeClass("is-invalid");
+            $(".emailValidateError").addClass("invisible");
+
+            //reguler expression
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if (filter.test(email)) {
+
+                emailValidate =true;
+         }else{
+            $(".emailValidateError").removeClass("invisible");
+         }
+            
+
+         
+
+        }
+        //Email Validate End
+
+
+        //Password Validate 
+        if(password.length == ""){
+            $(".password").addClass("is-invalid");
+            $(".passwordError").addClass("invisible");
+
+            if(re_password.length == ""){
+                $(".re-password").addClass("is-invalid");
+            } else {
+                $(".re-password").removeClass("is-invalid");
+            }
+
+        } else {
+          
+
+            if(re_password.length == ""){
+                $(".re-password").addClass("is-invalid");
+                $(".passwordError").addClass("invisible");
+            } else {
+
+                if(password  != re_password){
+                    $(".re-password").removeClass("is-invalid");
+                    $(".passwordError").removeClass("invisible");
+                    
+                } else {
+                    $(".re-password").removeClass("is-invalid");
+                    $(".passwordError").addClass("invisible");
+                    passwordValidate=true;
+                    re_passwordValidate =true;
+                }
+            }
+
+            
+        }
+
+        //password Validate End
+
+        
+
+       
+      //  console.log("name"+nameValidate);
+        //console.log("email"+emailValidate);
+        //console.log("password"+passwordValidate);
+        //console.log("re password"+re_passwordValidate);
+        //console.log("nic"+nicValidate);
+        //console.log("phone"+phoneValidate);
+        //console.log("addree"+addressValidate);
+
+        if( (nameValidate == true) && (emailValidate == true) && (passwordValidate == true) && (re_passwordValidate == true) && (nicValidate == true) && (addressValidate == true) && (phoneValidate == true)){
             $.ajax({
               type: "POST",
               url : "userSignup.php",
@@ -114,7 +225,7 @@ $(document).ready(function(){
                        window.location = "login.php";
                   }
               }
-            })
+            }) 
         } 
     })
 

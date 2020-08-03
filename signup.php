@@ -26,17 +26,22 @@
   <div class="form-group">
   <input type="email" id="email" class="form-control email" placeholder="Email">
   <div class="invalid-feedback emailError" style="font-size:16px;">Email is required</div>
+  <div class="invisible emailValidateError text-danger" style="font-size:16px;">Provide a Valid Email Address !</div>
   </div>
   <!-- Close form-group -->
   <div class="form-group">
   <input type="text" id="nic" class="form-control nic" placeholder="NIC">
   <div class="invalid-feedback" style="font-size:16px;">NIC is required</div>
+  <div class="invisible emailValidate text-danger" style="font-size:16px;">This is not a valid nic number ..!</div>
+
   </div>
   <!-- Close form-group -->
   <div class="form-group">
   <input type="text" id="phone" class="form-control phone" placeholder="Telephone Number">
   <div class="invalid-feedback" style="font-size:16px;">Telephone is required</div>
-  </div>
+  <div class="invisible phoneValidate text-danger" style="font-size:16px;">This is not a valid Phone number ..!</div>
+  
+</div>
   <!-- Close form-group -->
   <div class="form-group">
   <textarea id="address" class="form-control address" placeholder="Address"></textarea>
@@ -51,6 +56,8 @@
   <div class="form-group">
   <input type="password" id="re-password" class="form-control re-password" placeholder="confirm Password">
   <div class="invalid-feedback" style="font-size:16px;">confirm Password is required</div>
+  <div class="invisible passwordError text-danger" style="font-size:16px;">Confirm Password Not match ..!</div>
+
   </div>
   <!-- Close form-group -->
   <div class="form-group">

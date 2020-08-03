@@ -41,7 +41,7 @@
   <!-- Close form-group -->
   <div class="form-group">
    <button type="button" id="login" class="btn btn-info">Login &rarr;</button>
-   <a href="signupForm.php" style="float:right;margin-top:10px;">Create new account</a>
+   <a href="signup.php" style="float:right;margin-top:10px;">Create new account</a>
   </div>
   <!-- Close form-group -->
   </form>
